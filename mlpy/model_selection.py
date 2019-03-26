@@ -1,4 +1,5 @@
-import sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
+
 
 def train_dev_test_split(*arrays, **options):
 
@@ -11,7 +12,7 @@ def train_dev_test_split(*arrays, **options):
     if test_size == 'default':
         test_size = 0.25
 
-    train_set, test_dev_set = train_test_split(*arrays, **dict(**options, test_size = dev_size + test_size))
-    test_set, dev_set = train_test_split(*arrays, **dict(**options, test_size = dev_size / (dev_size + test_size)))
+    train_set, test_dev_set = train_test_split(*arrays, **dict(**options, test_size=dev_size + test_size))
+    test_set, dev_set = train_test_split(test_dev_set, **dict(**options, test_size=dev_size / (dev_size + test_size)))
 
-    return [train_set, test_set, dev_set]
+    return [train_set, dev_set, test_set]
